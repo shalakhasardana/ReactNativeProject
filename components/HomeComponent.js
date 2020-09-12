@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { ScrollView } from "react-native";
 import { CAMPSITES } from "../shared/campsites";
 import { PROMOTIONS } from "../shared/promotions";
 import { PARTNERS } from "../shared/partners";
+import { Text } from "react-native";
 import { Card } from "react-native-elements";
 
 function RenderItem({ item }) {
