@@ -1,6 +1,6 @@
 import * as ActionTypes from "./ActionTypes";
 
- const campsites = (
+export const campsites = (
   state = { isLoading: true, errMess: null, campsites: [] },
   action
 ) => {
