@@ -99,6 +99,14 @@ class Reservation extends Component {
             }}
           />
         </View>
+        <View style={styles.formRow}>
+          <Button
+            onPress={() => this.handleReservation()}
+            title="Search"
+            color="#5637DD"
+            accessibilityLabel="Tap me to search for available campsites to reserve"
+          />
+        </View>
         <Modal
           animationType={"slide"}
           transparent={false}
