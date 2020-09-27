@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   ScrollView,
   Text,
@@ -9,12 +9,12 @@ import {
   StyleSheet,
   Alert,
   PanResponder,
-} from "react-native";
-import { Card, Icon, Rating, Input } from "react-native-elements";
-import { postFavorite, postComment } from "../redux/ActionCreators";
-import { connect } from "react-redux";
-import { baseUrl } from "../shared/baseUrl";
-import * as Animatable from "react-native-animatable";
+} from 'react-native';
+import { Card, Icon, Rating, Input } from 'react-native-elements';
+import { postFavorite, postComment } from '../redux/ActionCreators';
+import { connect } from 'react-redux';
+import { baseUrl } from '../shared/baseUrl';
+import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = (state) => {
   return {
@@ -35,38 +35,40 @@ function RenderCampsite(props) {
   const view = React.createRef();
 
   const recognizeDrag = ({ dx }) => (dx < -200 ? true : false);
-
+  const recognizeComment = ({ dx }) => (dx > 200 ? true : false);
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderGrant: () => {
       view.current
         .rubberBand(1000)
         .then((endState) =>
-          console.log(endState.finished ? "finished" : "canceled")
+          console.log(endState.finished ? 'finished' : 'canceled')
         );
     },
     onPanResponderEnd: (e, gestureState) => {
-      console.log("pan responder end", gestureState);
+      console.log('pan responder end', gestureState);
       if (recognizeDrag(gestureState)) {
         Alert.alert(
-          "Add Favorite",
-          "Are you sure you wish to add " + campsite.name + " to favorites?",
+          'Add Favorite',
+          'Are you sure you wish to add ' + campsite.name + ' to favorites?',
           [
             {
-              text: "Cancel",
-              style: "cancel",
-              onPress: () => console.log("Cancel Pressed"),
+              text: 'Cancel',
+              style: 'cancel',
+              onPress: () => console.log('Cancel Pressed'),
             },
             {
-              text: "OK",
+              text: 'OK',
               onPress: () =>
                 props.favorite
-                  ? console.log("Already set as a favorite")
+                  ? console.log('Already set as a favorite')
                   : props.markFavorite(),
             },
           ],
           { cancelable: false }
         );
+      } else if (recognizeComment(gestureState)) {
+        props.onShowModal();
       }
       return true;
     },
@@ -75,7 +77,7 @@ function RenderCampsite(props) {
   if (campsite) {
     return (
       <Animatable.View
-        animation="fadeInDown"
+        animation='fadeInDown'
         duration={2000}
         delay={1000}
         ref={view}
@@ -88,23 +90,23 @@ function RenderCampsite(props) {
           <Text style={{ margin: 10 }}>{campsite.description}</Text>
           <View style={styles.cardRow}>
             <Icon
-              name={props.favorite ? "heart" : "heart-o"}
-              type="font-awesome"
-              color="#f50"
+              name={props.favorite ? 'heart' : 'heart-o'}
+              type='font-awesome'
+              color='#f50'
               raised
               reverse
               onPress={() =>
                 props.favorite
-                  ? console.log("Already set as a favorite")
+                  ? console.log('Already set as a favorite')
                   : props.markFavorite()
               }
             />
 
             <Icon
               style={styles.cardItem}
-              name="pencil"
-              type="font-awesome"
-              color="#5637DD"
+              name='pencil'
+              type='font-awesome'
+              color='#5637DD'
               raised
               reverse
               onPress={() => props.onShowModal()}
@@ -123,12 +125,12 @@ function RenderComments({ comments }) {
       <View style={{ margin: 10 }}>
         <Text style={{ fontSize: 14 }}>{item.text}</Text>
         <Rating
-          type="star"
+          type='star'
           fractions={0}
           startingValue={item.rating}
           imageSize={10}
           readonly
-          style={{ alignItems: "flex-start", paddingVertical: "5%" }}
+          style={{ alignItems: 'flex-start', paddingVertical: '5%' }}
         />
         <Text
           style={{ fontSize: 12 }}
@@ -138,8 +140,8 @@ function RenderComments({ comments }) {
   };
 
   return (
-    <Animatable.View animation="fadeInUp" duration={2000} delay={1000}>
-      <Card title="Comments">
+    <Animatable.View animation='fadeInUp' duration={2000} delay={1000}>
+      <Card title='Comments'>
         <FlatList
           data={comments}
           renderItem={renderCommentItem}
@@ -156,14 +158,14 @@ class CampsiteInfo extends Component {
 
     this.state = {
       rating: 5,
-      text: "",
-      author: "",
+      text: '',
+      author: '',
       showModal: false,
     };
   }
 
   static navigationOptions = {
-    title: "Campsite Information",
+    title: 'Campsite Information',
   };
 
   toggleModal() {
@@ -183,8 +185,8 @@ class CampsiteInfo extends Component {
   resetForm() {
     this.setState({
       rating: 1,
-      text: "",
-      author: "",
+      text: '',
+      author: '',
       showModal: false,
     });
   }
@@ -194,7 +196,7 @@ class CampsiteInfo extends Component {
   }
 
   render() {
-    const campsiteId = this.props.navigation.getParam("campsiteId");
+    const campsiteId = this.props.navigation.getParam('campsiteId');
     const campsite = this.props.campsites.campsites.filter(
       (campsite) => campsite.id === campsiteId
     )[0];
@@ -211,14 +213,14 @@ class CampsiteInfo extends Component {
         />
         <RenderComments comments={comments} />
         <Modal
-          animationType={"slide"}
+          animationType={'slide'}
           transparent={false}
           visible={this.state.showModal}
           onRequestClose={() => this.toggleModal()}
         >
           <Rating
             showRating
-            type="star"
+            type='star'
             fractions={0}
             startingValue={this.state.rating}
             imageSize={40}
@@ -226,16 +228,16 @@ class CampsiteInfo extends Component {
             style={{ paddingVertical: 10 }}
           />
           <Input
-            placeholder="Author"
-            leftIcon={{ type: "font-awesome", name: "user-o" }}
+            placeholder='Author'
+            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
             leftIconContainerStyle={{ paddingRight: 10 }}
             onChangeText={(value) => this.setState({ author: value })}
             value={this.state.author}
           />
 
           <Input
-            placeholder="Comments"
-            leftIcon={{ type: "font-awesome", name: "comment-o" }}
+            placeholder='Comments'
+            leftIcon={{ type: 'font-awesome', name: 'comment-o' }}
             leftIconContainerStyle={{ paddingRight: 10 }}
             onChangeText={(value) => this.setState({ text: value })}
             value={this.state.text}
@@ -247,8 +249,8 @@ class CampsiteInfo extends Component {
                   this.handleComment(campsiteId);
                   this.resetForm();
                 }}
-                color="#5637DD"
-                title="Submit"
+                color='#5637DD'
+                title='Submit'
               />
             </View>
             <View style={{ margin: 10 }}>
@@ -257,8 +259,8 @@ class CampsiteInfo extends Component {
                   this.toggleModal();
                   this.resetForm();
                 }}
-                color="#808080"
-                title="Cancel"
+                color='#808080'
+                title='Cancel'
               />
             </View>
           </View>
@@ -270,10 +272,10 @@ class CampsiteInfo extends Component {
 
 const styles = StyleSheet.create({
   cardRow: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     margin: 20,
   },
   cardItem: {
@@ -281,7 +283,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modal: {
-    justifyContent: "center",
+    justifyContent: 'center',
     margin: 20,
   },
 });
