@@ -1,16 +1,17 @@
-import React, { Component } from "react";
-import Home from "./HomeComponent";
-import Directory from "./DirectoryComponent";
-import CampsiteInfo from "./CampsiteInfoComponent";
-import About from "./AboutComponent";
-import Contact from "./ContactComponent";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import Home from './HomeComponent';
+import Directory from './DirectoryComponent';
+import CampsiteInfo from './CampsiteInfoComponent';
+import About from './AboutComponent';
+import Contact from './ContactComponent';
+import { connect } from 'react-redux';
+import Login from './LoginComponent';
 import {
   fetchCampsites,
   fetchComments,
   fetchPromotions,
   fetchPartners,
-} from "../redux/ActionCreators";
+} from '../redux/ActionCreators';
 import {
   View,
   Platform,
@@ -18,16 +19,16 @@ import {
   Text,
   ScrollView,
   Image,
-} from "react-native";
-import { Icon } from "react-native-elements";
+} from 'react-native';
+import { Icon } from 'react-native-elements';
 import {
   createStackNavigator,
   createDrawerNavigator,
   DrawerItems,
-} from "react-navigation";
-import Reservation from "./ReservationComponent";
-import SafeAreaView from "react-native-safe-area-view";
-import Favorites from "./FavouritesComponent";
+} from 'react-navigation';
+import Reservation from './ReservationComponent';
+import SafeAreaView from 'react-native-safe-area-view';
+import Favorites from './FavouritesComponent';
 
 const mapDispatchToProps = {
   fetchCampsites,
@@ -43,16 +44,16 @@ const HomeNavigator = createStackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD',
       },
-      headerTintColor: "#ffff",
+      headerTintColor: '#ffff',
       headerTitleStyle: {
-        color: "#ffff",
+        color: '#ffff',
       },
       headerLeft: (
         <Icon
-          name="home"
-          type="font-awesome"
+          name='home'
+          type='font-awesome'
           iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
@@ -68,8 +69,8 @@ const DirectoryNavigator = createStackNavigator(
       navigationOptions: ({ navigation }) => ({
         headerLeft: (
           <Icon
-            name="list"
-            type="font-awesome"
+            name='list'
+            type='font-awesome'
             iconStyle={styles.stackIcon}
             onPress={() => navigation.toggleDrawer()}
           />
@@ -79,16 +80,41 @@ const DirectoryNavigator = createStackNavigator(
     CampsiteInfo: { screen: CampsiteInfo },
   },
   {
-    initialRouteName: "Directory",
+    initialRouteName: 'Directory',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD',
       },
-      headerTintColor: "#ffff",
+      headerTintColor: '#ffff',
       headerTitleStyle: {
-        color: "#ffff",
+        color: '#ffff',
       },
     },
+  }
+);
+
+const LoginNavigator = createStackNavigator(
+  {
+    Login: { screen: Login },
+  },
+  {
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: '#5637DD',
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        color: '#fff',
+      },
+      headerLeft: (
+        <Icon
+          name='sign-in'
+          type='font-awesome'
+          iconStyle={styles.stackIcon}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      ),
+    }),
   }
 );
 
@@ -99,16 +125,16 @@ const ReservationNavigator = createStackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD',
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff",
+        color: '#fff',
       },
       headerLeft: (
         <Icon
-          name="tree"
-          type="font-awesome"
+          name='tree'
+          type='font-awesome'
           iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
@@ -124,16 +150,16 @@ const AboutNavigator = createStackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD',
       },
-      headerTintColor: "#ffff",
+      headerTintColor: '#ffff',
       headerTitleStyle: {
-        color: "#ffff",
+        color: '#ffff',
       },
       headerLeft: (
         <Icon
-          name="info-circle"
-          type="font-awesome"
+          name='info-circle'
+          type='font-awesome'
           iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
@@ -149,16 +175,16 @@ const ContactNavigator = createStackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD',
       },
-      headerTintColor: "#ffff",
+      headerTintColor: '#ffff',
       headerTitleStyle: {
-        color: "#ffff",
+        color: '#ffff',
       },
       headerLeft: (
         <Icon
-          name="address-card"
-          type="font-awesome"
+          name='address-card'
+          type='font-awesome'
           iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
@@ -171,12 +197,12 @@ const CustomDrawerContentComponent = (props) => (
   <ScrollView>
     <SafeAreaView
       style={styles.container}
-      forceInset={{ top: "always", horizontal: "never" }}
+      forceInset={{ top: 'always', horizontal: 'never' }}
     >
       <View style={styles.drawerHeader}>
         <View style={{ flex: 1 }}>
           <Image
-            source={require("./images/logo.png")}
+            source={require('./images/logo.png')}
             style={styles.drawerImage}
           />
         </View>
@@ -196,16 +222,16 @@ const FavoritesNavigator = createStackNavigator(
   {
     navigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD',
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff",
+        color: '#fff',
       },
       headerLeft: (
         <Icon
-          name="heart"
-          type="font-awesome"
+          name='heart'
+          type='font-awesome'
           iconStyle={styles.stackIcon}
           onPress={() => navigation.toggleDrawer()}
         />
@@ -216,11 +242,24 @@ const FavoritesNavigator = createStackNavigator(
 
 const MainNavigator = createDrawerNavigator(
   {
+    Login: {
+      screen: LoginNavigator,
+      navigationOptions: {
+        drawerIcon: ({ tintColor }) => (
+          <Icon
+            name='sign-in'
+            type='font-awesome'
+            size={24}
+            color={tintColor}
+          />
+        ),
+      },
+    },
     Home: {
       screen: HomeNavigator,
       navigationOptions: {
         drawerIcon: ({ tintColor }) => (
-          <Icon name="home" type="font-awesome" size={24} color={tintColor} />
+          <Icon name='home' type='font-awesome' size={24} color={tintColor} />
         ),
       },
     },
@@ -228,27 +267,27 @@ const MainNavigator = createDrawerNavigator(
       screen: DirectoryNavigator,
       navigationOptions: {
         drawerIcon: ({ tintColor }) => (
-          <Icon name="list" type="font-awesome" size={24} color={tintColor} />
+          <Icon name='list' type='font-awesome' size={24} color={tintColor} />
         ),
       },
     },
     Favorites: {
       screen: FavoritesNavigator,
       navigationOptions: {
-        drawerLabel: "My Favorites",
+        drawerLabel: 'My Favorites',
         drawerIcon: ({ tintColor }) => (
-          <Icon name="heart" type="font-awesome" size={24} color={tintColor} />
+          <Icon name='heart' type='font-awesome' size={24} color={tintColor} />
         ),
       },
     },
     About: {
       screen: AboutNavigator,
       navigationOptions: {
-        drawerLabel: "About Us",
+        drawerLabel: 'About Us',
         drawerIcon: ({ tintColor }) => (
           <Icon
-            name="info-circle"
-            type="font-awesome"
+            name='info-circle'
+            type='font-awesome'
             size={24}
             color={tintColor}
           />
@@ -258,20 +297,20 @@ const MainNavigator = createDrawerNavigator(
     Reservation: {
       screen: ReservationNavigator,
       navigationOptions: {
-        drawerLabel: "Reserve Campsite",
+        drawerLabel: 'Reserve Campsite',
         drawerIcon: ({ tintColor }) => (
-          <Icon name="tree" type="font-awesome" size={24} color={tintColor} />
+          <Icon name='tree' type='font-awesome' size={24} color={tintColor} />
         ),
       },
     },
     Contact: {
       screen: ContactNavigator,
       navigationOptions: {
-        drawerLabel: "Contact Us",
+        drawerLabel: 'Contact Us',
         drawerIcon: ({ tintColor }) => (
           <Icon
-            name="address-card"
-            type="font-awesome"
+            name='address-card'
+            type='font-awesome'
             size={24}
             color={tintColor}
           />
@@ -280,7 +319,8 @@ const MainNavigator = createDrawerNavigator(
     },
   },
   {
-    drawerBackgroundColor: "#CEC8FF",
+    initialRouteName: 'Home',
+    drawerBackgroundColor: '#CEC8FF',
     contentComponent: CustomDrawerContentComponent,
   }
 );
@@ -298,7 +338,7 @@ class Main extends Component {
         style={{
           flex: 1,
           paddingTop:
-            Platform.OS === "ios" ? 0 : Expo.Constants.statusBarHeight,
+            Platform.OS === 'ios' ? 0 : Expo.Constants.statusBarHeight,
         }}
       >
         <MainNavigator />
@@ -312,17 +352,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   drawerHeader: {
-    backgroundColor: "#5637DD",
+    backgroundColor: '#5637DD',
     height: 140,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
   },
   drawerHeaderText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   drawerImage: {
     margin: 10,
@@ -331,7 +371,7 @@ const styles = StyleSheet.create({
   },
   stackIcon: {
     marginLeft: 10,
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
   },
 });
