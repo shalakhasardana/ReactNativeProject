@@ -146,6 +146,25 @@ class RegisterTab extends Component {
     ),
   };
 
+  getImageFromGallery = async () => {
+    const cameraRollPermission = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL
+    );
+
+    if (cameraRollPermission.status === 'granted') {
+      const capturedImage = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [1, 1],
+        quality: 1,
+      });
+      if (!capturedImage.cancelled) {
+        console.log(capturedImage);
+        this.setState({ imageUrl: capturedImage.uri });
+      }
+    }
+  };
+
   getImageFromCamera = async () => {
     const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
     const cameraRollPermission = await Permissions.askAsync(
@@ -168,7 +187,6 @@ class RegisterTab extends Component {
   };
 
   processImage = async (image) => {
-    console.log(image);
     const manipResult = await ImageManipulator.manipulateAsync(
       image,
       [{ rotate: 0 }],
@@ -207,6 +225,7 @@ class RegisterTab extends Component {
               style={styles.image}
             />
             <Button title='Camera' onPress={this.getImageFromCamera} />
+            <Button title='Gallery' onPress={this.getImageFromGallery} />
           </View>
           <Input
             placeholder='Username'
