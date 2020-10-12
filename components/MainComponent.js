@@ -6,6 +6,7 @@ import About from './AboutComponent';
 import Contact from './ContactComponent';
 import { connect } from 'react-redux';
 import Login from './LoginComponent';
+
 import {
   View,
   Platform,

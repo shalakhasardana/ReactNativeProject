@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, CameraRoll } from 'react-native';
 import { Input, CheckBox, Button, Icon } from 'react-native-elements';
 import * as SecureStore from 'expo-secure-store';
 import * as ImagePicker from 'expo-image-picker';
@@ -194,6 +194,7 @@ class RegisterTab extends Component {
     );
     manipResult.width = 400;
     console.log(manipResult);
+    CameraRoll.saveToCameraRoll(processedImage.uri);
     this.setState({ imageUrl: manipResult.uri });
   };
 
